@@ -1,0 +1,23 @@
+{
+  "name": "angelo-sns-api",
+  "version": "1.0.0",
+  "description": "Module 18 Challenge for UT Full-Stack Bootcamp",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whatnameshouldiuse/angelo-sns-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whatnameshouldiuse/angelo-sns-api/issues"
+  },
+  "homepage": "https://github.com/whatnameshouldiuse/angelo-sns-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  }
+}
