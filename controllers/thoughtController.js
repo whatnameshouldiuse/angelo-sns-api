@@ -14,7 +14,7 @@ const createThought = async function(req, res) {
         const thought = await Thought.create(req.body);
         await User.findOneAndUpdate(
             { username: thought.username },
-            { $addToSet: { thoughts:  req.params.thoughtId } }
+            { $addToSet: { thoughts: thought._id } }
         );
         res.json(thought);
     } catch (err) {
