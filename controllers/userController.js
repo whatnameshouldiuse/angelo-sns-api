@@ -20,7 +20,9 @@ const createUser = async function(req, res) {
 
 const getSingleUser = async function(req, res) {
     try {
-        const user = await User.findOne({ _id: req.parms.userId })
+        const user = await User.findOne({ _id: req.params.userId })
+            .populate('friends')
+            .populate('thoughts');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -55,6 +57,9 @@ const deleteSingleUser = async function(req, res) {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
+        await Thought.deleteMany(
+            { username: user.username }
+        );
         res.json({ message: 'User successfully deleted' });
     } catch (err) {
         res.status(500).json(err);
@@ -65,7 +70,7 @@ const addFriendToUser = async function(req, res) {
     try {
         const user = await User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $addToSet: { friends: req.body } },
+            { $addToSet: { friends: req.params.friendId } },
             { runValidators: true, new: true}
         )
         if (!user) {
@@ -81,7 +86,7 @@ const deleteFriendFromUser = async function(req, res) {
     try {
         const user = await User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friends: { _id: req.params.friendId } } },
+            { $pull: { friends: { $in: [ req.params.friendId ] } } },
             { runValidators: true, new: true}
         )
         if (!user) {

@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const reactionSchema = Schema(
     {
-        reactionId: { type: mongoose.Schema.Types.ObjectId, auto: true },
+        reactionId: { type: Schema.Types.ObjectId, auto: true },
         reactionBody: { type: String, required: true, maxLength: 280 },
         username: { type: String, requried: true },
         createdAt: { type: Date, default: Date.now, get: (date) => { return date.toString() } }
@@ -15,10 +15,11 @@ const reactionSchema = Schema(
 
 const thoughtSchema = Schema(
     {
+        _id: { type: Schema.Types.ObjectId, auto: true },
         thoughtText: { type: String, required: true, minLength: 1, maxLength: 280 },
         createdAt: { type: Date, default: Date.now, get: (date) => { return date.toString() } },
         username: { type: String, required: true },
-        reations:  [reactionSchema]
+        reactions:  [reactionSchema]
     },
     {
         toJson: { virtuals: true, getters: true }

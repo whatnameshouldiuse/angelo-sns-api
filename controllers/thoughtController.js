@@ -53,8 +53,8 @@ const deleteSingleThought = async function(req, res) {
             return res.status(404).json({ message: 'Thought not found' });
         }
         const user = await User.findOneAndUpdate(
-            { thoughts: req.params.thoughtId },
-            { $pull: { thoughts: req.params.thoughtId } },
+            { thoughts: { $in : [ req.params.thoughtId ] } },
+            { $pull: { thoughts: { $in: [ req.params.thoughtId ] } } },
             { new: true }
         );
         res.json({ message: 'Thought successfully deleted' });
